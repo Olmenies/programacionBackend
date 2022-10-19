@@ -1,0 +1,17 @@
+[
+    {
+        "id": 1,
+        "title": "Betta",
+        "price": 1500
+    },
+    {
+        "id": 2,
+        "title": "Ancistrus",
+        "price": 700
+    },
+    {
+        "id": 3,
+        "title": "Neón",
+        "Price": 150
+    }
+]
