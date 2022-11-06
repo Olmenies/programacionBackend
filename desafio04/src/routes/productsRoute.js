@@ -4,10 +4,8 @@ const fs = require('fs');
 const { parse } = require('path');
 const path = require('path');
 
+// Constants
 const filePath = path.resolve(__dirname, '../data/products.json');
-
-// Route definition
-const productsRoute = Router();
 
 // Util functions
 const isBodyValid = (body) => {
@@ -35,6 +33,9 @@ const indexProducts = (products) => {
 
     return (indexedProdcuts);
 }
+
+// Route definition
+const productsRoute = Router();
 
 // Endpoints
 productsRoute.get('/', async (req, res) => {

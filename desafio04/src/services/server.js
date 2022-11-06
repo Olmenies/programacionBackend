@@ -13,6 +13,7 @@ const mainRoute = require('../routes/index');
 
 // Middleware
 // Disponibilizations
+app.use(express.static('public'))
 // Main route usage
 app.use('/api', mainRoute);
 
