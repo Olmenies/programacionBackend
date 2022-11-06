@@ -49,7 +49,7 @@ productsRoute.get('/:id', async (req, res) => {
     const indexedProdcuts = indexProducts(products);
     const selectedProduct = indexedProdcuts.find(el => el.id === id);
 
-    selectedProduct ? res.status(200).json({ data: selectedProduct }) : res.status(404).json({ data: 'El usuario no existe' });
+    selectedProduct ? res.status(200).json({ data: selectedProduct }) : res.status(404).json({ data: 'Producto no encontrado' });
 });
 
 productsRoute.post('/', async (req, res) => {
@@ -70,25 +70,33 @@ productsRoute.put('/:id', async (req, res) => {
     const id = parseInt(req.params.id);
     const introducedObject = req.body;
 
-    //Add a verification in case the id does not exist on array
-    if (isBodyValid(introducedObject)) {
-        products[id - 1] = introducedObject;
-        await saveData(products);
-        res.status(200).json({ data: products });
+    const indexedProdcuts = indexProducts(products);
+    const selectedProduct = indexedProdcuts.find(el => el.id === id);
+
+    if (selectedProduct) {
+        if (isBodyValid(introducedObject)) {
+            products[id - 1] = introducedObject;
+            await saveData(products);
+            res.status(200).json({ data: products });
+        } else {
+            res.status(400).json({ data: 'Bad input' });
+        }
     } else {
-        res.status(400).json({ data: 'Bad input' });
+        res.status(404).json({ data: 'Producto no encontrado' });
     }
 });
 
 productsRoute.delete('/:id', async (req, res) => {
     const id = req.params.id;
     const products = await getProducts();
-    const selectedProduct = products[id - 1];
 
     products.splice(id - 1, 1);
     await saveData(products);
 
-    res.json({ data: `Deleted product ${JSON.stringify(selectedProduct)}` });
+    const indexedProdcuts = indexProducts(products);
+    const selectedProduct = indexedProdcuts.find(el => el.id === id);
+
+    selectedProduct ? res.status(200).json({ data: 'Producto borrado' }) : res.status(404).json({ data: 'Producto no encontrado' });
 });
 
 // Exports
