@@ -9,7 +9,7 @@ const filePath = path.resolve(__dirname, '../data/products.json');
 
 // Util functions
 const isBodyValid = (body) => {
-    if ((body.title && body.price) && (!isNaN(body.price))) {
+    if ((body.title && body.price &&body.thumbnail) && (!isNaN(body.price))) {
         return true;
     } else {
         return false;
@@ -91,11 +91,15 @@ productsRoute.delete('/:id', async (req, res) => {
     const id = req.params.id;
     const products = await getProducts();
 
-    products.splice(id - 1, 1);
-    await saveData(products);
+    console.log(id);
 
     const indexedProdcuts = indexProducts(products);
-    const selectedProduct = indexedProdcuts.find(el => el.id === id);
+    const selectedProduct = indexedProdcuts.find(el => el.id === parseInt(id));
+
+    if (selectedProduct) {
+        products.splice(id - 1, 1);
+        await saveData(products);
+    }
 
     selectedProduct ? res.status(200).json({ data: 'Producto borrado' }) : res.status(404).json({ data: 'Producto no encontrado' });
 });
