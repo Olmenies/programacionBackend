@@ -4,9 +4,7 @@ const { v4: uuidv4 } = require('uuid');
 // Class
 class Products {
     constructor() {
-        this.prods = [
-            { id: uuidv4(), title: 'El hombre que calculaba', price: 1200 }
-        ];
+        this.prods = [];
     };
 
     getAll() {
@@ -18,6 +16,7 @@ class Products {
             id: uuidv4(),
             title: data.title,
             price: data.price,
+            image: data.image
         };
 
         this.prods.push(newProd);

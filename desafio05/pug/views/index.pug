@@ -2,10 +2,8 @@ html
     head
         link(rel='stylesheet', href='./css/style.css')
     body 
-        p='Test'
         include components/form
-        ul
-            each i in productsArray
-                li
-                    p=i.title
-                    p=i.price
+        if productsArray.length === 0
+            p='No se encontraron productos'
+        else
+            include components/table
