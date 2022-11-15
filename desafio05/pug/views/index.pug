@@ -1,0 +1,11 @@
+html
+    head
+        link(rel='stylesheet', href='./css/style.css')
+    body 
+        p='Test'
+        include components/form
+        ul
+            each i in productsArray
+                li
+                    p=i.title
+                    p=i.price
