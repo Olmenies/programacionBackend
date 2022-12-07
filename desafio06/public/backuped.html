@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="./css/style.css">
+    <title>Document</title>
+</head>
+
+<body>
+    <h1>El chat más cumbiero</h1>
+    <section id="chatMessages">
+        <div class="message">
+            <span class="messageUser">Soy el bot más cumbiero says: </span>
+            <span class="messageText">Siempre tú me decías que me amabas, que era tu vida</span>
+        </div>
+    </section>
+    <section>
+        <form action="" id="messageForm">
+            <label for="inputMessage">Mensaje: </label>
+            <input type="text" name="inputMessage" id="inputMessage">
+            <input type="submit" value="Enviar mensaje" id="submitMessage">
+        </form>
+    </section>
+    <script src="/socket.io/socket.io.js"></script>
+    <script src="./js/main.js"></script>
+</body>
+
+</html>
