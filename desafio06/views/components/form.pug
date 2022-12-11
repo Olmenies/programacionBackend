@@ -1,0 +1,14 @@
+form(action='/api/products',method='POST', id='productsForm')
+    label(for='title')='Título'
+    input(type='text', name='title', id='formTitleInput')
+    br
+
+    label(for='price')='Precio' 
+    input(type='number', name='price', id='formPriceInput')
+    br
+
+    label(for='image')='Imagen URL' 
+    input(type='string', name='image', id='formImageInput')
+    br
+
+    input(type='submit', value='Enviar', id='formSubmitButton')

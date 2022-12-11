@@ -31,7 +31,6 @@ app.use((err, req, res, next) => {
 
 // Debug endpoints
 app.use('/', (req, res) => {
-    console.log('You\'re at /');
     res.status(200).json({ msg: 'You\'re at /' });
 });
 

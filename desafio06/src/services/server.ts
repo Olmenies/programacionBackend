@@ -1,6 +1,6 @@
 // Imports
+import express, { NextFunction, Request, Response } from "express";
 import { createServer } from "http";
-import express, { Request, Response, NextFunction } from "express";
 import path from "path";
 import mainRoute from "../routes";
 
@@ -11,27 +11,29 @@ const viewsPath = path.resolve(__dirname, "../../views");
 const app = express();
 const httpServer = createServer(app);
 
+// Two magic lines
+app.use(express.json());
+app.use(express.urlencoded({ extended: true }));
+
 // App configuration
-app.set("view engine", "pug");
+app.set("views engine", "pug");
 app.set("views", viewsPath);
 
 // Disponibilizations
 app.use("/", express.static("public"));
 
-// Two magic lines
-app.use(express.json());
-app.use(express.urlencoded({ extended: true }));
+// Main route usage
+app.use("/api", mainRoute);
 
-// Debuggin endpoints
-app.use("/api",mainRoute);
+//Middleware
+app.use((err: Error, req: Request, res: Response, next: NextFunction) => {
+  console.error(err.stack);
+  return res.status(500).send("Something broke!");
+});
+
+// Debugging endpoints
+app.get("/", (req, res) => {
+  res.json({ msg: "You made a GET to /" });
+});
 
 export default httpServer;
-
-/*
-
- (req: Request, res: Response) => {
-    console.log("I'm on /api");
-    res.status(200).render(`${viewsPath}/index.pug`);
-}
-
-*/

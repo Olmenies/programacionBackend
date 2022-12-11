@@ -1,16 +1,15 @@
 html
   head
-    link(rel='stylesheet' href='./css/style.css')
   body 
-    h1='Chat hecho con Typescript, Node, Express y Websockets'
+    h1='Chat de Dune'
     section(id='chatMessages')
       div(class='message')
         span(class='messageUser')='Bot dice: '
         span(class='messageText')='Bienvenido'
-    section
-      form(action="" id='messageForm')
+    div
+      form(action="" method='POST' id='messageForm')
         label(for="inputMessage")='Mensaje: '
         input(type="text" name="inputMessage" id='inputMessage')
         input(type="submit" value="Enviar mensaje", submitMessage)
     script(src="/socket.io/socket.io.js") 
-    script(src="../js/main.js") 
+    script(src="../js/chat.js") 

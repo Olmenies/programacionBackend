@@ -1,0 +1,13 @@
+table(id='prodsTable') 
+    thead 
+        tr 
+        th='Producto'
+        th='Precio'
+        th='Imagen'
+    tbody(id='prodsTbody')
+        each i in productsArray
+            tr
+                td=i.title
+                td=i.price
+                td
+                    img(src=i.image, alt="")

@@ -1,32 +1,45 @@
-console.log('I\'m main.js on client');
+console.log("Logged main.js on front-end");
 
+// Socket init
 const socket = io();
 
-// HTML DOM elements
-const messageForm = document.getElementById('messageForm');
-const inputMessage = document.getElementById('inputMessage');
-const submitMessage = document.getElementById('submitMessage');
-const chatMessages = document.getElementById('chatMessages');
+// Constants
+const productsForm = document.getElementById("productsForm");
+const formTitleInput = document.getElementById("formTitleInput");
+const formPriceInput = document.getElementById("formPriceInput");
+const formImageInput = document.getElementById("formImageInput");
+const formSubmitbutton = document.getElementById("formSubmitButton");
+const prodsTable = document.getElementById('prodsTable');
+const prodsTbody = document.getElementById('prodsTbody');
 
-const addMessageToChat = (dataBroadcasted) => {
-  const div = document.createElement('div');
-  div.innerHTML=`
-    <span>${dataBroadcasted.user} says: </span>
-    <span>${dataBroadcasted.msg}</span/>
+// Functions
+const addProductRow = (data) => {
+  const tr = document.createElement('tr');
+  tr.innerHTML = `
+    <td>${data.title}</td>
+    <td>${data.price}</td>
+    <td><img src=${data.image} /></td>
   `
-  chatMessages.appendChild(div);
+  prodsTbody.appendChild(tr);
 }
 
 // Events
-messageForm.addEventListener('submit', e => {
+productsForm.addEventListener("submit", (e) => {
   e.preventDefault();
-  console.log('I\'m messageForm submit event');
-  socket.emit('messageToServer', inputMessage.value);
-  inputMessage.value='';
-})
 
-// Websockets listeners
-socket.on('broadcastMessage', dataBroadcasted => {
-  console.log('hola');
-  addMessageToChat(dataBroadcasted);
-})
+  // TODO: use a .foreach to un-hardcode this
+  const prod = {
+    title: formTitleInput.value,
+    price: formPriceInput.value,
+    image: formImageInput.value,
+  };
+
+  console.log(prod);
+
+  socket.emit("prodsFormSubmitted", prod);
+});
+
+// Sockets
+socket.on("updateProdsTable", (data) => {
+  addProductRow(data);
+});

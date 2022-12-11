@@ -5,14 +5,14 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 Object.defineProperty(exports, "__esModule", { value: true });
 // Imports
 const express_1 = require("express");
-const routeChat_1 = __importDefault(require("./routeChat"));
-// Main route definition
+const productsRoute_1 = __importDefault(require("./productsRoute"));
+// Main route
 const mainRoute = (0, express_1.Router)();
-// Other routes definitions
-mainRoute.use('/chat', routeChat_1.default);
-// Debug endpoints
-mainRoute.get('/', (req, res) => {
-    res.json({ msg: 'You made a GET to /api' });
+// Other routes
+mainRoute.use("/products", productsRoute_1.default);
+//Debug endpoints
+mainRoute.get("/", (req, res) => {
+    res.json({ msg: "You made a GET to /api" });
 });
 // Exports
 exports.default = mainRoute;

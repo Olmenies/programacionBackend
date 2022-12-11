@@ -1,16 +1,16 @@
 // Imports
 import { Router } from "express";
-import routeChat from './routeChat';
+import productsRoute from "./productsRoute";
 
-// Main route definition
+// Main route
 const mainRoute = Router();
 
-// Other routes definitions
-mainRoute.use('/chat', routeChat);
+// Other routes
+mainRoute.use("/products", productsRoute);
 
-// Debug endpoints
-mainRoute.get('/', (req, res) => {
-  res.json({msg:'You made a GET to /api'});
+//Debug endpoints
+mainRoute.get("/", (req, res) => {
+  res.json({ msg: "You made a GET to /api" });
 });
 
 // Exports

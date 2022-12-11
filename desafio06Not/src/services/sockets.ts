@@ -11,6 +11,8 @@ const initWsServer = (server: httpServer) => {
     console.log('New client connected!');
     //console.log(`Client socket id: ${socket.client.id}`);
     console.log(`Sever socket id: ${socket.id}`);
+
+    io.emit('newClientJoinedRoom', socket.id);
     
     socket.on("messageToServer", (dataReceived) => {
       console.log(dataReceived);
