@@ -1,14 +1,16 @@
-form(action='/api/products',method='POST', id='productsForm')
-    label(for='title')='Título'
-    input(type='text', name='title', id='formTitleInput')
-    br
+div(class='divFormContainer')
+    h2='Ingresar un producto'
+    form(action='/api/products',method='POST', id='productsForm')
+        label(for='title')='Título'
+        input(type='text', name='title', id='formTitleInput' required)
+        br
 
-    label(for='price')='Precio' 
-    input(type='number', name='price', id='formPriceInput')
-    br
+        label(for='price')='Precio' 
+        input(type='number', name='price', id='formPriceInput' required)
+        br
 
-    label(for='image')='Imagen URL' 
-    input(type='string', name='image', id='formImageInput')
-    br
+        label(for='image')='Imagen URL' 
+        input(type='string', name='image', id='formImageInput' required)
+        br
 
-    input(type='submit', value='Enviar', id='formSubmitButton')
+        input(type='submit', value='Enviar', id='formSubmitButton')

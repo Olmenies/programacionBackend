@@ -30,6 +30,7 @@ app.use((err, req, res, next) => {
 });
 // Debugging endpoints
 app.get("/", (req, res) => {
-    res.json({ msg: "You made a GET to /" });
+    //res.json({ msg: "You made a GET to /" });
+    res.redirect('/api/products');
 });
 exports.default = httpServer;

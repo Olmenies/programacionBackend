@@ -1,11 +1,17 @@
-html
+doctype html
+html(lang="en")
     head
-        link(rel='stylesheet', href='./css/style.css')
-    body 
+        meta(charset="UTF-8")
+        meta(http-equiv="X-UA-Compatible", content="IE=edge")
+        meta(name="viewport", content="width=device-width, initial-scale=1.0")
+        link(rel='stylesheet', href='../css/style.css')
+        title Document
+    body
+        h1='My Node.js app'
         include components/form
-        if productsArray.length === 0
-            p='No se encontraron productos'
-        else
-            include components/table
+        include components/table
+        include components/chat
     script(src="/socket.io/socket.io.js")
     script(src="../js/main.js")
+    script(src="../js/form.js")
+    script(src="../js/chat.js")

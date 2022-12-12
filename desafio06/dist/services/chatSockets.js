@@ -6,10 +6,10 @@ Object.defineProperty(exports, "__esModule", { value: true });
 const socket_io_1 = require("socket.io");
 const prod_1 = __importDefault(require("../controller/prod"));
 // Ws init --> Convert this to class  
-const initWsServer = (server) => {
+const initChatWsServer = (server) => {
     const io = new socket_io_1.Server(server);
     io.on('connection', socket => {
-        console.log('New client connected');
+        console.log('New chat client connected');
         console.log(`Socket id: ${socket.id}`);
         socket.on('prodsFormSubmitted', socket => {
             prod_1.default.save(socket);
@@ -19,4 +19,4 @@ const initWsServer = (server) => {
     return io;
 };
 // Exports
-exports.default = initWsServer;
+exports.default = initChatWsServer;

@@ -33,7 +33,8 @@ app.use((err: Error, req: Request, res: Response, next: NextFunction) => {
 
 // Debugging endpoints
 app.get("/", (req, res) => {
-  res.json({ msg: "You made a GET to /" });
+  //res.json({ msg: "You made a GET to /" });
+  res.redirect('/api/products');
 });
 
 export default httpServer;

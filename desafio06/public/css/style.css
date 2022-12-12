@@ -1,3 +1,76 @@
-h1{
+.spanEmail{
+    font-weight: bold;
+    color: blue;
+}
+
+.spanDate{
+    color: maroon;
+}
+
+.spanMessage{
+    color: green;
+    font-weight: lighter;
+}
+
+body{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+.divFormContainer{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+
+    width: 100%;
+    padding:3rem;   
+    border-radius: 1rem;
+
     background-color: crimson;
+}
+
+#productsForm{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+.tableDivContainer{
+    width: 100%;
+    margin-top: 2rem;
+}
+
+table{
+    width: 100%;
+}
+
+table, td, th{
+    border: solid 2px black;
+    border-collapse: collapse;
+}
+
+td{
+    text-align: center;
+}
+
+.chatDivContainer{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+#chatMessages{
+    display: flex;
+    flex-direction: column;
+
+    height: 20rem;
+    overflow: scroll;
+
+    border: solid 2px black;
+    margin-bottom: 2rem;
 }
