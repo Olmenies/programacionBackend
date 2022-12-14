@@ -12,6 +12,15 @@ const config_1 = __importDefault(require("../config"));
 const isAdmin = config_1.default.isAdmin;
 // Route definition
 const prodsRoute = (0, express_1.Router)();
+// Middleware
+const checkIfAdmin = (req, res, next) => {
+    if (!config_1.default.isAdmin) {
+        res
+            .status(401)
+            .json({ msg: "User is not authorized to perform this acction" });
+    }
+    next();
+};
 // Endpoints
 prodsRoute.get("/", (req, res) => {
     const data = prodsController_1.default.getAllProds();
@@ -24,42 +33,21 @@ prodsRoute.get("/:id", (req, res) => {
         ? res.status(200).json({ data: selectedProduct })
         : res.status(404).json({ data: "Producto no encontrado" });
 });
-prodsRoute.post("/", (req, res) => {
-    if (isAdmin) {
-        const newProd = Object.assign({ id: (0, uuid_1.v4)(), timestamp: new Date() }, req.body);
-        prodsController_1.default.saveProd(newProd);
-        res.status(201).json({ msg: "Product added" });
-    }
-    else {
-        res
-            .status(401)
-            .json({ msg: "User is not authorized to perform this acction" });
-    }
+prodsRoute.post("/", checkIfAdmin, (req, res) => {
+    const newProd = Object.assign({ id: (0, uuid_1.v4)(), timestamp: new Date() }, req.body);
+    prodsController_1.default.saveProd(newProd);
+    res.status(201).json({ msg: "Product added" });
 });
-prodsRoute.put("/:id", (req, res) => {
-    if (isAdmin) {
-        const id = req.params.id;
-        const data = req.body;
-        prodsController_1.default.updateProdByID(id, data);
-        res.status(201).json({ msg: "Product updated" });
-    }
-    else {
-        res
-            .status(401)
-            .json({ msg: "User is not authorized to perform this acction" });
-    }
+prodsRoute.put("/:id", checkIfAdmin, (req, res) => {
+    const id = req.params.id;
+    const data = req.body;
+    prodsController_1.default.updateProdByID(id, data);
+    res.status(201).json({ msg: "Product updated" });
 });
-prodsRoute.delete("/:id", (req, res) => {
-    if (isAdmin) {
-        const id = req.params.id;
-        prodsController_1.default.deleteProd(id);
-        res.status(200).json({ msg: "Product deleted" });
-    }
-    else {
-        res
-            .status(401)
-            .json({ msg: "User is not authorized to perform this acction" });
-    }
+prodsRoute.delete("/:id", checkIfAdmin, (req, res) => {
+    const id = req.params.id;
+    prodsController_1.default.deleteProd(id);
+    res.status(200).json({ msg: "Product deleted" });
 });
 // Exports
 exports.default = prodsRoute;

@@ -1,20 +1,7 @@
 // Imports
 import path from "path";
 import fs from "fs";
-
-// Interface
-interface product {
-  name: string;
-  description: string;
-  code: string;
-  photo: string;
-  stock: number;
-}
-
-interface labeledProduct extends product {
-  id: string;
-  timestamp: string;
-}
+import { product, labeledProduct } from "../common/types";
 
 // Constants
 const prodsFile = path.resolve(__dirname, "../../data/products.json");
