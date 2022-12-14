@@ -15,9 +15,9 @@ app.use(express.urlencoded({ extended: true }));
 app.use('/api', mainRoute)
 
 // Endpoints endpoints
-app.use('/', (req, res) => {
-  res.json({msg:'You made a GET to /'});
-});
+app.use('*', (req, res) => {
+  res.status(404).json({msg:'404 - Resource not found'});
+})
 
 // Exports
 export default app;

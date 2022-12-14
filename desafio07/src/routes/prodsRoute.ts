@@ -4,6 +4,7 @@ import prodsController from "../controller/prodsController";
 import { v4 as uuidv4 } from "uuid";
 
 // Constants
+const isAdmin = true;
 
 // Route definition
 const prodsRoute = Router();
@@ -16,8 +17,6 @@ prodsRoute.get("/", (req, res) => {
 
 prodsRoute.get("/:id", (req, res) => {
   const id = req.params.id;
-  console.log(req.headers.isAdmin);
-
   const selectedProduct = prodsController.getProdById(id);
   selectedProduct
     ? res.status(200).json({ data: selectedProduct })
@@ -25,28 +24,44 @@ prodsRoute.get("/:id", (req, res) => {
 });
 
 prodsRoute.post("/", (req, res) => {
-  const newProd = {
-    id: uuidv4(),
-    timestamp: new Date(),
-    ...req.body,
-  };
-
-  prodsController.save(newProd);
-
-  res.json({ msg: "Hola" });
+  if (isAdmin) {
+    const newProd = {
+      id: uuidv4(),
+      timestamp: new Date(),
+      ...req.body,
+    };
+    prodsController.saveProd(newProd);
+    res.status(200).json({ msg: "Product added" });
+  } else {
+    res
+      .status(401)
+      .json({ msg: "User is not authorized to perform this acction" });
+  }
 });
 
 prodsRoute.put("/:id", (req, res) => {
-  const id = req.params.id;
-  const data = req.body;
-  prodsController.updateProdByID(id, data);
-  res.json({ msg: "WIP" });
+  if (isAdmin) {
+    const id = req.params.id;
+    const data = req.body;
+    prodsController.updateProdByID(id, data);
+    res.status(200).json({ msg: "Product updated" });
+  } else {
+    res
+      .status(401)
+      .json({ msg: "User is not authorized to perform this acction" });
+  }
 });
 
-prodsRoute.delete('/:id', (req, res) => {
-  const id = req.params.id;
-  prodsController.deleteProd(id)
-  res.json({msg:'You made a DELETE to /api/products/:id'});
+prodsRoute.delete("/:id", (req, res) => {
+  if (isAdmin) {
+    const id = req.params.id;
+    prodsController.deleteProd(id);
+    res.status(200).json({ msg: "Product deleted" });
+  } else {
+    res
+      .status(401)
+      .json({ msg: "User is not authorized to perform this acction" });
+  }
 });
 
 // Exports
