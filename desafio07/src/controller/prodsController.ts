@@ -53,21 +53,29 @@ class Products {
   }
 
   public updateProdByID(id: string, data: product) {
-    console.log(id);
-    console.log(data);
-
     //this.prods.map(el => el.id).indexOf(id);
     const index = this.prods.map((el) => el.id).indexOf(id);
     const selectedProduct = this.prods.find((el) => el.id === id);
     if(selectedProduct){
       const updatedProduct = {...selectedProduct, ...data};
       this.prods[index] = updatedProduct;
+      this.#writeToFs(this.prods);
     }
   }
 
   public save(data: labeledProduct) {
     this.prods.push(data);
     this.#writeToFs(this.prods);
+  }
+
+  public deleteProd(id: string){
+    const index = this.prods.map((el) => el.id).indexOf(id);
+    console.log(index);
+    console.log(this.prods);
+    //const selectedProduct = this.prods.find((el) => el.id === id);
+    this.prods.splice(index - 1, 1);
+    console.log(this.prods);
+    
   }
 }
 

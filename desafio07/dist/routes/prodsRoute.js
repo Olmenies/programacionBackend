@@ -34,5 +34,10 @@ prodsRoute.put("/:id", (req, res) => {
     prodsController_1.default.updateProdByID(id, data);
     res.json({ msg: "WIP" });
 });
+prodsRoute.delete('/:id', (req, res) => {
+    const id = req.params.id;
+    prodsController_1.default.deleteProd(id);
+    res.json({ msg: 'You made a DELETE to /api/products/:id' });
+});
 // Exports
 exports.default = prodsRoute;

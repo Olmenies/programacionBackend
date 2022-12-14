@@ -43,5 +43,11 @@ prodsRoute.put("/:id", (req, res) => {
   res.json({ msg: "WIP" });
 });
 
+prodsRoute.delete('/:id', (req, res) => {
+  const id = req.params.id;
+  prodsController.deleteProd(id)
+  res.json({msg:'You made a DELETE to /api/products/:id'});
+});
+
 // Exports
 export default prodsRoute;

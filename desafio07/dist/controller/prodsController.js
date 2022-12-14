@@ -49,19 +49,26 @@ class Products {
         return selectedProduct;
     }
     updateProdByID(id, data) {
-        console.log(id);
-        console.log(data);
         //this.prods.map(el => el.id).indexOf(id);
         const index = this.prods.map((el) => el.id).indexOf(id);
         const selectedProduct = this.prods.find((el) => el.id === id);
         if (selectedProduct) {
             const updatedProduct = Object.assign(Object.assign({}, selectedProduct), data);
             this.prods[index] = updatedProduct;
+            __classPrivateFieldGet(this, _Products_instances, "m", _Products_writeToFs).call(this, this.prods);
         }
     }
     save(data) {
         this.prods.push(data);
         __classPrivateFieldGet(this, _Products_instances, "m", _Products_writeToFs).call(this, this.prods);
+    }
+    deleteProd(id) {
+        const index = this.prods.map((el) => el.id).indexOf(id);
+        console.log(index);
+        console.log(this.prods);
+        //const selectedProduct = this.prods.find((el) => el.id === id);
+        this.prods.splice(index - 1, 1);
+        console.log(this.prods);
     }
 }
 _Products_instances = new WeakSet(), _Products_writeToFs = function _Products_writeToFs(data) {
