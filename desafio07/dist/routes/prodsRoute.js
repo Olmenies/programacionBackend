@@ -7,8 +7,9 @@ Object.defineProperty(exports, "__esModule", { value: true });
 const express_1 = require("express");
 const prodsController_1 = __importDefault(require("../controller/prodsController"));
 const uuid_1 = require("uuid");
+const config_1 = __importDefault(require("../config"));
 // Constants
-const isAdmin = true;
+const isAdmin = config_1.default.isAdmin;
 // Route definition
 const prodsRoute = (0, express_1.Router)();
 // Endpoints
@@ -27,7 +28,7 @@ prodsRoute.post("/", (req, res) => {
     if (isAdmin) {
         const newProd = Object.assign({ id: (0, uuid_1.v4)(), timestamp: new Date() }, req.body);
         prodsController_1.default.saveProd(newProd);
-        res.status(200).json({ msg: "Product added" });
+        res.status(201).json({ msg: "Product added" });
     }
     else {
         res
@@ -40,7 +41,7 @@ prodsRoute.put("/:id", (req, res) => {
         const id = req.params.id;
         const data = req.body;
         prodsController_1.default.updateProdByID(id, data);
-        res.status(200).json({ msg: "Product updated" });
+        res.status(201).json({ msg: "Product updated" });
     }
     else {
         res

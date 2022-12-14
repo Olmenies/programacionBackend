@@ -1,10 +1,8 @@
 // Imports
 import Server from './services/server';
-
-// Constants
-const PORT = process.env.PORT || 8080;
+import Config from './config';
 
 // Server listener
-Server.listen(PORT, () => {
-  console.log(`Server running on port ${PORT}`);
+Server.listen(Config.port, () => {
+  console.log(`Server running on port ${Config.port}`);
 });

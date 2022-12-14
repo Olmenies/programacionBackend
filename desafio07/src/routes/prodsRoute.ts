@@ -2,9 +2,10 @@
 import { Router } from "express";
 import prodsController from "../controller/prodsController";
 import { v4 as uuidv4 } from "uuid";
+import Config from "../config";
 
 // Constants
-const isAdmin = true;
+const isAdmin = Config.isAdmin;
 
 // Route definition
 const prodsRoute = Router();
@@ -31,7 +32,7 @@ prodsRoute.post("/", (req, res) => {
       ...req.body,
     };
     prodsController.saveProd(newProd);
-    res.status(200).json({ msg: "Product added" });
+    res.status(201).json({ msg: "Product added" });
   } else {
     res
       .status(401)
@@ -44,7 +45,7 @@ prodsRoute.put("/:id", (req, res) => {
     const id = req.params.id;
     const data = req.body;
     prodsController.updateProdByID(id, data);
-    res.status(200).json({ msg: "Product updated" });
+    res.status(201).json({ msg: "Product updated" });
   } else {
     res
       .status(401)
