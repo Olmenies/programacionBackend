@@ -5,7 +5,7 @@ import { cart, labeledProduct } from "../common/types";
 import { v4 as uuidv4 } from "uuid";
 
 // Constants
-const cartFile = path.resolve(__dirname, "../../data/carts.json");
+const cartsFile = path.resolve(__dirname, "../../data/carts.json");
 
 // Class
 class Cart {
@@ -18,36 +18,67 @@ class Cart {
 
 // Controller
 class CartController {
-  constructor(private carts: Cart[] = []) {};
+  constructor(private carts: Cart[] = []) {}
+
+  async #writeToFs(data: Cart[]) {
+    try {
+      await fs.promises.writeFile(cartsFile, JSON.stringify(data));
+    } catch (error) {
+      console.log(error);
+    }
+  }
+
+  // Async function used to bring the values saved on fs when Products is initialized
+  async initialize() {
+    try {
+      const data: Cart[] = JSON.parse(
+        await fs.promises.readFile(cartsFile, "utf-8")
+      );
+      this.carts = [...data];
+    } catch (error) {
+      console.log(error);
+    }
+  }
 
   public createNewCart() {
     this.carts.push(new Cart());
+    this.#writeToFs(this.carts);
   }
 
-  public listAllCarts() : Cart[]{
-    return this.carts
+  public listAllCarts(): Cart[] {
+    console.log("asd");
+
+    return this.carts;
   }
 
-  public listCartProds(id: string) : labeledProduct[] | undefined{
-    const selectedCart = this.carts.find(el => el.id === id )
+  public listCartProds(id: string): labeledProduct[] | undefined {
+    const selectedCart = this.carts.find((el) => el.id === id);
     return selectedCart ? selectedCart.prods : undefined;
   }
 
-  public addProdToCart(id: string, prod: labeledProduct | undefined){
+  public addProdToCart(id: string, prod: labeledProduct | undefined) {
     console.log(id);
     console.log(prod);
-    const selectedCart = this.carts.find(el => el.id === id);
-    if(selectedCart){
-      if(prod){
+    const selectedCart = this.carts.find((el) => el.id === id);
+    if (selectedCart) {
+      if (prod) {
         selectedCart.prods.push(prod);
       }
+      this.#writeToFs(this.carts);
     }
-    
+  }
+
+  public deleteCartbyId(id: string) {
+    const index = this.carts.map((el) => el.id).indexOf(id);
+    //const selectedProduct = this.prods.find((el) => el.id === id);
+    this.carts.splice(index - 1, 1);
+    this.#writeToFs(this.carts);
   }
 }
 
 // Controller initialization
 const cartController = new CartController();
+cartController.initialize();
 
 // Exports
 export default cartController;

@@ -10,29 +10,35 @@ import prodsController from "../controller/prodsController";
 const cartRoute = Router();
 
 // Endpoints
-cartRoute.get('/', (req, res) => {
+cartRoute.get("/", (req, res) => {
   const carts = cartController.listAllCarts();
-  res.json({msg:carts});  
+  res.json({ msg: carts });
 });
 
-cartRoute.post('/', (req, res) => {
+cartRoute.post("/", (req, res) => {
   cartController.createNewCart();
-  res.json({msg:'You made a POST to /api/cart'});
+  res.json({ msg: "You made a POST to /api/cart" });
 });
 
-cartRoute.get('/:id/products', (req, res) => {
+cartRoute.get("/:id/products", (req, res) => {
   const id = req.params.id;
-  const prods = cartController.listCartProds(id); 
-  res.json({msg: prods});
+  const prods = cartController.listCartProds(id);
+  res.json({ msg: prods });
 });
 
-cartRoute.post('/:id/:product', (req, res) => {
+cartRoute.post("/:id/:product", (req, res) => {
   const id = req.params.id;
   const prod = req.params.product;
   const selectedProd = prodsController.getProdById(prod);
-  cartController.addProdToCart(id, selectedProd)
-  
-  res.json({msg:'You made a POST to /:id/:product'});
+  cartController.addProdToCart(id, selectedProd);
+
+  res.json({ msg: "You made a POST to /:id/:product" });
+});
+
+cartRoute.delete("/:id", (req, res) => {
+  const id = req.params.id;
+  cartController.deleteCartbyId(id);
+  res.json({msg:'You made a DELETE to /:id'});
 });
 
 // Exports

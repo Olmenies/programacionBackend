@@ -62,7 +62,7 @@ class ProductsController {
         this.prods.push(data);
         __classPrivateFieldGet(this, _ProductsController_instances, "m", _ProductsController_writeToFs).call(this, this.prods);
     }
-    deleteProd(id) {
+    deleteProdById(id) {
         const index = this.prods.map((el) => el.id).indexOf(id);
         //const selectedProduct = this.prods.find((el) => el.id === id);
         this.prods.splice(index - 1, 1);

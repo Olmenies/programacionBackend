@@ -54,7 +54,7 @@ prodsRoute.put("/:id", checkIfAdmin, (req, res) => {
 
 prodsRoute.delete("/:id", checkIfAdmin, (req, res) => {
   const id = req.params.id;
-  prodsController.deleteProd(id);
+  prodsController.deleteProdById(id);
   res.status(200).json({ msg: "Product deleted" });
 });
 

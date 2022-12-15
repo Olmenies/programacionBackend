@@ -55,7 +55,7 @@ class ProductsController {
     this.#writeToFs(this.prods);
   }
 
-  public deleteProd(id: string){
+  public deleteProdById(id: string){
     const index = this.prods.map((el) => el.id).indexOf(id);
     //const selectedProduct = this.prods.find((el) => el.id === id);
     this.prods.splice(index - 1, 1);
