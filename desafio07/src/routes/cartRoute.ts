@@ -1,6 +1,5 @@
 // Imports
 import { Router } from "express";
-import path from "path";
 import cartController from "../controller/cartController";
 import prodsController from "../controller/prodsController";
 
@@ -29,23 +28,28 @@ cartRoute.get("/:id/products", (req, res) => {
 });
 
 cartRoute.post("/:id/products/:product", (req, res) => {
-  const id = req.params.id;
-  const prod = req.params.product;
-  const selectedProd = prodsController.getProdById(prod);
-  cartController.addProdToCart(id, selectedProd);
+  const { id, product } = req.params;
+  const selectedProd = prodsController.getProdById(product);
 
-  prod
-    ? res.status(200).json({ data: 'Product added' })
-    : res.status(404).json({ data: "Product not found" });
+  if (selectedProd) {
+    cartController.addProdToCart(id, selectedProd);
+    res.status(200).json({ data: "Product added" });
+  } else {
+    res.status(404).json({ data: "Product not found" });
+  }
 });
 
 cartRoute.delete("/:id", (req, res) => {
   const id = req.params.id;
   cartController.deleteCartbyId(id);
-  res.json({msg:'You made a DELETE to /:id'});
+  res.status(200).json({ msg: "You made a DELETE to /:id" });
+});
+
+cartRoute.delete("/:id/products/:product", (req, res) => {
+  const { id, product } = req.params;
+  cartController.deleteCartProdByID(id, product);
+  res.status(200).json({ msg: "You made a DELETE to /:id/products/:product" });
 });
 
 // Exports
 export default cartRoute;
-
-// Prod - 4e6569b1-18ce-4ab9-8b18-a2a8410515aa

@@ -1,7 +1,8 @@
 // Imports
+// To do: Add return codes
 import fs from "fs";
 import path from "path";
-import { cart, labeledProduct } from "../common/types";
+import { labeledProduct } from "../common/types";
 import { v4 as uuidv4 } from "uuid";
 
 // Constants
@@ -54,7 +55,7 @@ class CartController {
     return selectedCart ? selectedCart.prods : undefined;
   }
 
-  public addProdToCart(id: string, prod: labeledProduct | undefined) {
+  public addProdToCart(id: string, prod: labeledProduct) {
     console.log(id);
     console.log(prod);
     const selectedCart = this.carts.find((el) => el.id === id);
@@ -71,6 +72,17 @@ class CartController {
     //const selectedProduct = this.prods.find((el) => el.id === id);
     this.carts.splice(index - 1, 1);
     this.#writeToFs(this.carts);
+  }
+
+  public deleteCartProdByID(cartId: string, prodId: string) {
+    const selectedCart = this.carts.find((el) => el.id === cartId);
+    if (selectedCart) {
+      const index = selectedCart.prods.map((el) => el.id).indexOf(prodId);
+      if (index) {
+        selectedCart.prods.splice(index - 1, 1);
+        this.#writeToFs(this.carts);
+      }
+    }
   }
 }
 

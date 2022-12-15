@@ -19,6 +19,7 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 var _CartController_instances, _CartController_writeToFs;
 Object.defineProperty(exports, "__esModule", { value: true });
 // Imports
+// To do: Add return codes
 const fs_1 = __importDefault(require("fs"));
 const path_1 = __importDefault(require("path"));
 const uuid_1 = require("uuid");
@@ -77,6 +78,16 @@ class CartController {
         //const selectedProduct = this.prods.find((el) => el.id === id);
         this.carts.splice(index - 1, 1);
         __classPrivateFieldGet(this, _CartController_instances, "m", _CartController_writeToFs).call(this, this.carts);
+    }
+    deleteCartProdByID(cartId, prodId) {
+        const selectedCart = this.carts.find((el) => el.id === cartId);
+        if (selectedCart) {
+            const index = selectedCart.prods.map((el) => el.id).indexOf(prodId);
+            if (index) {
+                selectedCart.prods.splice(index - 1, 1);
+                __classPrivateFieldGet(this, _CartController_instances, "m", _CartController_writeToFs).call(this, this.carts);
+            }
+        }
     }
 }
 _CartController_instances = new WeakSet(), _CartController_writeToFs = function _CartController_writeToFs(data) {
