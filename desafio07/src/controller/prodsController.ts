@@ -6,8 +6,8 @@ import { product, labeledProduct } from "../common/types";
 // Constants
 const prodsFile = path.resolve(__dirname, "../../data/products.json");
 
-// Class
-class Products {
+// Controller
+class ProductsController {
   constructor(private prods: labeledProduct[] = []) {}
 
   async #writeToFs(data: labeledProduct[]) {
@@ -62,8 +62,8 @@ class Products {
   }
 }
 
-// Class initialization
-const prodsController = new Products();
+// Controller initialization
+const prodsController = new ProductsController();
 prodsController.initialize();
 
 // Exports

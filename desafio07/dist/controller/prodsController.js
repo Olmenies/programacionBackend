@@ -16,18 +16,18 @@ var __classPrivateFieldGet = (this && this.__classPrivateFieldGet) || function (
 var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
-var _Products_instances, _Products_writeToFs;
+var _ProductsController_instances, _ProductsController_writeToFs;
 Object.defineProperty(exports, "__esModule", { value: true });
 // Imports
 const path_1 = __importDefault(require("path"));
 const fs_1 = __importDefault(require("fs"));
 // Constants
 const prodsFile = path_1.default.resolve(__dirname, "../../data/products.json");
-// Class
-class Products {
+// Controller
+class ProductsController {
     constructor(prods = []) {
         this.prods = prods;
-        _Products_instances.add(this);
+        _ProductsController_instances.add(this);
     }
     // Async function used to bring the values saved on fs when Products is initialized
     initialize() {
@@ -55,12 +55,12 @@ class Products {
         if (selectedProduct) {
             const updatedProduct = Object.assign(Object.assign({}, selectedProduct), data);
             this.prods[index] = updatedProduct;
-            __classPrivateFieldGet(this, _Products_instances, "m", _Products_writeToFs).call(this, this.prods);
+            __classPrivateFieldGet(this, _ProductsController_instances, "m", _ProductsController_writeToFs).call(this, this.prods);
         }
     }
     saveProd(data) {
         this.prods.push(data);
-        __classPrivateFieldGet(this, _Products_instances, "m", _Products_writeToFs).call(this, this.prods);
+        __classPrivateFieldGet(this, _ProductsController_instances, "m", _ProductsController_writeToFs).call(this, this.prods);
     }
     deleteProd(id) {
         const index = this.prods.map((el) => el.id).indexOf(id);
@@ -68,7 +68,7 @@ class Products {
         this.prods.splice(index - 1, 1);
     }
 }
-_Products_instances = new WeakSet(), _Products_writeToFs = function _Products_writeToFs(data) {
+_ProductsController_instances = new WeakSet(), _ProductsController_writeToFs = function _ProductsController_writeToFs(data) {
     return __awaiter(this, void 0, void 0, function* () {
         try {
             yield fs_1.default.promises.writeFile(prodsFile, JSON.stringify(data));
@@ -78,8 +78,8 @@ _Products_instances = new WeakSet(), _Products_writeToFs = function _Products_wr
         }
     });
 };
-// Class initialization
-const prodsController = new Products();
+// Controller initialization
+const prodsController = new ProductsController();
 prodsController.initialize();
 // Exports
 exports.default = prodsController;
