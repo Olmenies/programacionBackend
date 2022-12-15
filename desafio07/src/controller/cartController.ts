@@ -46,8 +46,6 @@ class CartController {
   }
 
   public listAllCarts(): Cart[] {
-    console.log("asd");
-
     return this.carts;
   }
 

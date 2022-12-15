@@ -24,7 +24,7 @@ const checkIfAdmin = (req: Request, res: Response, next: NextFunction) => {
 // Endpoints
 prodsRoute.get("/", (req, res) => {
   const data = prodsController.getAllProds();
-  res.json({ ...data });
+  res.status(200).json({ ...data });
 });
 
 prodsRoute.get("/:id", (req, res) => {
@@ -32,7 +32,7 @@ prodsRoute.get("/:id", (req, res) => {
   const selectedProduct = prodsController.getProdById(id);
   selectedProduct
     ? res.status(200).json({ data: selectedProduct })
-    : res.status(404).json({ data: "Producto no encontrado" });
+    : res.status(404).json({ data: "Product not found" });
 });
 
 prodsRoute.post("/", checkIfAdmin, (req, res) => {

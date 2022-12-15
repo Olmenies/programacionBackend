@@ -13,23 +13,27 @@ const cartRoute = (0, express_1.Router)();
 // Endpoints
 cartRoute.get("/", (req, res) => {
     const carts = cartController_1.default.listAllCarts();
-    res.json({ msg: carts });
+    res.json(Object.assign({}, carts));
 });
 cartRoute.post("/", (req, res) => {
     cartController_1.default.createNewCart();
-    res.json({ msg: "You made a POST to /api/cart" });
+    res.status(201).json({ msg: "Cart created" });
 });
 cartRoute.get("/:id/products", (req, res) => {
     const id = req.params.id;
     const prods = cartController_1.default.listCartProds(id);
-    res.json({ msg: prods });
+    prods
+        ? res.status(200).json({ data: prods })
+        : res.status(404).json({ data: "Cart not found" });
 });
-cartRoute.post("/:id/:product", (req, res) => {
+cartRoute.post("/:id/products/:product", (req, res) => {
     const id = req.params.id;
     const prod = req.params.product;
     const selectedProd = prodsController_1.default.getProdById(prod);
     cartController_1.default.addProdToCart(id, selectedProd);
-    res.json({ msg: "You made a POST to /:id/:product" });
+    prod
+        ? res.status(200).json({ data: 'Product added' })
+        : res.status(404).json({ data: "Product not found" });
 });
 cartRoute.delete("/:id", (req, res) => {
     const id = req.params.id;

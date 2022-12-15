@@ -24,14 +24,14 @@ const checkIfAdmin = (req, res, next) => {
 // Endpoints
 prodsRoute.get("/", (req, res) => {
     const data = prodsController_1.default.getAllProds();
-    res.json(Object.assign({}, data));
+    res.status(200).json(Object.assign({}, data));
 });
 prodsRoute.get("/:id", (req, res) => {
     const id = req.params.id;
     const selectedProduct = prodsController_1.default.getProdById(id);
     selectedProduct
         ? res.status(200).json({ data: selectedProduct })
-        : res.status(404).json({ data: "Producto no encontrado" });
+        : res.status(404).json({ data: "Product not found" });
 });
 prodsRoute.post("/", checkIfAdmin, (req, res) => {
     const newProd = Object.assign({ id: (0, uuid_1.v4)(), timestamp: new Date() }, req.body);

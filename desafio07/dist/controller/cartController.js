@@ -55,7 +55,6 @@ class CartController {
         __classPrivateFieldGet(this, _CartController_instances, "m", _CartController_writeToFs).call(this, this.carts);
     }
     listAllCarts() {
-        console.log("asd");
         return this.carts;
     }
     listCartProds(id) {
