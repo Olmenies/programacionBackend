@@ -90,5 +90,6 @@ class CartController {
 const cartController = new CartController();
 cartController.initialize();
 
+
 // Exports
 export default cartController;
